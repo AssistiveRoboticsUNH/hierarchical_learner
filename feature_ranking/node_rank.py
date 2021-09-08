@@ -62,7 +62,7 @@ def evaluate_c_itr(lfd_params, model, mode="evaluation"):
 
     for feat in range(lfd_params.model.bottleneck_size):
         print("Obtain Importance for feature ...", feat)
-        #feature_importance_total = 0
+
         feature_importance_by_class = [0] * lfd_params.application.num_labels
         file_count_by_class = [0] * lfd_params.application.num_labels
 
@@ -97,7 +97,6 @@ def evaluate_c_itr(lfd_params, model, mode="evaluation"):
 
 
 ########
-
 
 def evaluate(args, lfd_params, model, mode):
     return evaluate_c_itr(lfd_params, model,  verbose=False, mode=mode)
@@ -146,13 +145,7 @@ def parse_exec_args():
 
     return parser.parse_args()
 
-
 ########
-
-def exec_repeats(args, lfd_params):
-    for r in range(args.repeat):
-        execute_func(args, lfd_params, r)
-
 
 if __name__ == '__main__':
     args = parse_exec_args()
@@ -160,4 +153,4 @@ if __name__ == '__main__':
     lfd_params.set_model_params(model_dict[args.model], end_point=-1)
     lfd_params.set_application(args.application)
 
-    exec_repeats(args, lfd_params)
+    execute_func(args, lfd_params, 1)

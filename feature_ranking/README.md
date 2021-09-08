@@ -1,7 +1,4 @@
-# hierarchical_learner
-
-
-###Procedure
+# Feature Ranking
 
 Generating a set of spatial and temporal feature rankings occurs in 3 steps:
 
@@ -11,6 +8,27 @@ Generating a set of spatial and temporal feature rankings occurs in 3 steps:
 
 I describe each step in turn and how it is accomplished using this code-base. All implemenations described here are 
 designed for use with the 'Tea Making' application and are described in the context of the VGG-16 CNN Backbone.
+
+### Dependencies
+
+This code has the following dependencies
+
+```
+Python3
+PyTorch
+PyTorch Geometric
+OpenCv
+Pillow
+Scipy
+Numpy
+Pandas
+Seaborn
+```
+
+
+### Dataset
+
+The Tea Making Dataset can be downloaded from: ???
 
 ###Training the Backbone Model
 
@@ -77,13 +95,13 @@ dataset is located in order to expedite learning. The trained models are placed 
 saved_models_<dataset_name>/c_<inference_approach>_<run_id>. This file can be interrogated using the same model_analysis 
 code as before.
 
+### Ranking
 
+Finally, the importance of the spatial features in the respective models can be established using the code in 
+node_rank.py. 
 
+```python3 node_rank.py <model_directory> <inference_approach>```
 
-
-
-
-1. run execute_backbone.py
-2. train model (run execute.py)
-3. generate feature_ranking (run node_rank.py)
-3.5 get ranking information from the trained model file
+This code will locate the trained model and will evaluate the model located there using the Tea Making dataset.
+The importance that the model applies to each of the spatial features is output in a file 'importance.csv' within the 
+model's directory (where teh results.csv file is located). 

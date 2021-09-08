@@ -5,7 +5,6 @@ from enums import suffix_dict, model_dict, Suffix
 from parameter_parser_tea_only import default_model_params, application_list
 
 from model.classifier import Classifier
-from model.policy_learner import PolicyLearner
 
 from run_classification import train as train_c_iad, evaluate as evaluate_c_iad
 from run_classification_gcn import train as train_c_itr, evaluate as evaluate_c_itr
@@ -78,23 +77,13 @@ def define_model(args, lfd_params, train, app=None, suffix=None, use_bottleneck=
         return None
 
     # classifier
-    if app == 'c' or suffix in [Suffix.PIPELINE, suffix.GENERATE_IAD]:
-        return Classifier(lfd_params, filename, backbone_id, suffix,
-                          use_feature_extractor=use_feature_extractor, train_feature_extractor=train_feature_extractor,
-                          use_bottleneck=use_bottleneck,
-                          use_spatial=use_spatial, train_spatial=train_spatial,
-                          use_pipeline=use_pipeline, train_pipeline=train_pipeline,
-                          use_temporal=use_temporal, train_temporal=train_temporal)
 
-    # policy_learner
-    return PolicyLearner(lfd_params, filename, backbone_id, suffix,
-                         use_feature_extractor=use_feature_extractor, train_feature_extractor=train_feature_extractor,
-                         use_bottleneck=use_bottleneck,
-                         use_spatial=use_spatial, train_spatial=train_spatial,
-                         use_pipeline=use_pipeline, train_pipeline=train_pipeline,
-                         use_temporal=use_temporal, train_temporal=train_temporal,
-                         train_policy=train)
-
+    return Classifier(lfd_params, filename, backbone_id, suffix,
+                      use_feature_extractor=use_feature_extractor, train_feature_extractor=train_feature_extractor,
+                      use_bottleneck=use_bottleneck,
+                      use_spatial=use_spatial, train_spatial=train_spatial,
+                      use_pipeline=use_pipeline, train_pipeline=train_pipeline,
+                      use_temporal=use_temporal, train_temporal=train_temporal)
 
 def generate_iad_files(args, lfd_params, model):
     backbone_id = args.model
@@ -115,37 +104,23 @@ def generate_itr_files(args, lfd_params, model):
 def train(args, lfd_params, model):
     print("train suffix:", args.suffix)
 
-    if args.app == 'c':
-        if args.suffix in ['backbone']:
-            return train_c_iad(lfd_params, model, verbose=True, input_dtype="video")
-        elif args.suffix in ['linear', 'lstm', 'tcn']:
-            return train_c_iad(lfd_params, model, verbose=False, input_dtype="iad")
-        elif args.suffix in ['ditrl']:
-            return train_c_itr(lfd_params, model, verbose=False, input_dtype="gcn")
-    else:
-        if args.suffix in ['linear', 'lstm', 'tcn']:
-            return train_pl_iad(lfd_params, model, verbose=False, input_dtype="iad")
-        elif args.suffix in ['ditrl']:
-            return train_pl_itr(lfd_params, model, verbose=False, input_dtype="gcn")
-        else:
-            print(f"suffix '{args.suffix}' is not intended for use with policy learning")
+    if args.suffix in ['backbone']:
+        return train_c_iad(lfd_params, model, verbose=True, input_dtype="video")
+    elif args.suffix in ['linear', 'lstm', 'tcn']:
+        return train_c_iad(lfd_params, model, verbose=False, input_dtype="iad")
+    elif args.suffix in ['ditrl']:
+        return train_c_itr(lfd_params, model, verbose=False, input_dtype="gcn")
+
 
 
 def evaluate(args, lfd_params, model, mode):
-    if args.app == 'c':
-        if args.suffix in ['backbone']:
-            return evaluate_c_iad(lfd_params, model,  verbose=True, mode=mode, input_dtype="video")
-        elif args.suffix in ['linear', 'lstm', 'tcn']:
-            return evaluate_c_iad(lfd_params, model,  verbose=False, mode=mode, input_dtype="iad")
-        elif args.suffix in ['ditrl']:
-            return evaluate_c_itr(lfd_params, model,  verbose=False, mode=mode, input_dtype="gcn")
-    else:
-        if args.suffix in ['linear', 'lstm', 'tcn']:
-            return evaluate_pl_iad(lfd_params, model, verbose=False, mode=mode, input_dtype="iad", ablation=False)
-        elif args.suffix in ['ditrl']:
-            return evaluate_pl_itr(lfd_params, model, verbose=False, mode=mode, input_dtype="gcn", ablation=False)
-        else:
-            print(f"suffix '{args.suffix}' is not intended for use with policy learning")
+    if args.suffix in ['backbone']:
+        return evaluate_c_iad(lfd_params, model,  verbose=True, mode=mode, input_dtype="video")
+    elif args.suffix in ['linear', 'lstm', 'tcn']:
+        return evaluate_c_iad(lfd_params, model,  verbose=False, mode=mode, input_dtype="iad")
+    elif args.suffix in ['ditrl']:
+        return evaluate_c_itr(lfd_params, model,  verbose=False, mode=mode, input_dtype="gcn")
+
 
 
 def generate_files(args, lfd_params, backbone=False):
@@ -238,7 +213,6 @@ if __name__ == '__main__':
     lfd_params = default_model_params()
     lfd_params.gpus = [args.gpu]
 
-    print("lfd_params.gpu:", lfd_params.gpus)
     lfd_params.set_application(args.application)
     lfd_params.set_model_params(model_dict[args.model], end_point=-1)
 
