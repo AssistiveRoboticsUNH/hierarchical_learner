@@ -1,0 +1,9 @@
+digraph {
+A [weight=None];
+B [weight=None];
+C [weight=None];
+A -> A [weight=None, label="x"];
+A -> B [weight=None, label="x"];
+B -> B [weight=None, label="T/O"];
+A -> C [weight=None, label="x"];
+}
