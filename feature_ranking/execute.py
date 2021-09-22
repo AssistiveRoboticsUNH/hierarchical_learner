@@ -186,7 +186,7 @@ def parse_exec_args():
 
     parser.set_defaults(app='c')
     parser.add_argument('model', help='model_id', choices=model_dict.keys())
-    parser.add_argument('suffix', help='suffix', choices=['backbone', 'linear', 'lstm', 'tcn', 'ditrl'])
+    parser.add_argument('suffix', help='suffix', choices=['backbone', 'linear_iad', 'ditrl'])
 
     parser.set_defaults(generate_gcn_files=False)
     parser.add_argument('--gen_gcn', help='generate only the GCN files (requires IAD files to already exist)', dest='generate_gcn_files', action='store_true')
