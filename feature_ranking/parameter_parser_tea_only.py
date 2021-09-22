@@ -18,6 +18,8 @@ GAUSSIAN_VALUE = 0
 
 # directory locations
 HOME_DIR = "/home/mbc2004"
+TEAMAKING_DIR = os.path.join(HOME_DIR, "datasets/TeaMaking2")
+PRETRAINED_DIR = os.path.join(HOME_DIR, "trained_models/pretrained_backbones")
 
 BASE_MODEL_DIR = "base_models"
 MODEL_SAVE_DIR = "saved_models"
@@ -53,8 +55,8 @@ def default_model_params():
             self.batch_size = batch_size
             self.epochs = epochs  # number of epochs to run experiments for
             self.lr = lr  
-            self.weight_decay = weight_decay # ?
-            self.momentum = momentum  # ?
+            self.weight_decay = weight_decay  # parameters used to train the backbone models
+            self.momentum = momentum  # parameters used to train the backbone models
 
             self.gaussian_value = gaussian_value
 
@@ -76,7 +78,7 @@ def default_model_params():
                 assert app in application_list, "ERROR: parameter_parser.py: application not recognized"
 
                 if app == "tea_making":
-                    self.file_directory = "/home/mbc2004/datasets/TeaMaking2"
+                    self.file_directory = TEAMAKING_DIR
                     self.obs_label_list = {"add_milk": 0, "add_sugar": 1, "add_tea_bag": 2, "add_water": 3,
                                            "nothing": 4, "stir": 5, "toggle_on_off": 6}
                     self.act_label_list = None
@@ -120,8 +122,7 @@ def default_model_params():
 
             if model_id == Backbone.TSM:
                 from model.backbone_model.backbone_tsm import BackboneTSM as backbone_class
-                pretrain_model_name = os.path.join(self.home_dir,
-                    "models/TSM_somethingv2_RGB_resnet101_shift8_blockres_avg_segment8_e45.pth")
+                pretrain_model_name = os.path.join(PRETRAINED_DIR, "TSM_somethingv2_RGB_resnet101_shift8_blockres_avg_segment8_e45.pth")
 
                 save_id = self.application.tsm["filename"]
                 bottleneck = self.application.tsm["bottleneck"]
@@ -153,8 +154,7 @@ def default_model_params():
                 iad_frames = [32, 32, 32, 16, 8, 8]
 
                 from model.backbone_model.backbone_i3d import BackboneI3D as backbone_class
-                pretrain_model_name = os.path.join(self.home_dir,
-                    "models/rgb_imagenet.pt")
+                pretrain_model_name = os.path.join(PRETRAINED_DIR, "rgb_imagenet.pt")
 
                 save_id = self.application.i3d["filename"]
                 bottleneck = self.application.i3d["bottleneck"]

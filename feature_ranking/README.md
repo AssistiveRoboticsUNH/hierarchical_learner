@@ -9,6 +9,10 @@ Generating a set of spatial and temporal feature rankings occurs in 3 steps:
 I describe each step in turn and how it is accomplished using this code-base. All implemenations described here are 
 designed for use with the 'Tea Making' application and are described in the context of the VGG-16 CNN Backbone.
 
+## Preparations
+
+The following are steps that are done to prepare for execution of the codebase.
+
 ### Dependencies
 
 This code has the following dependencies
@@ -25,12 +29,22 @@ Pandas
 Seaborn
 ```
 
-
 ### Dataset
 
 The Tea Making Dataset can be downloaded from: ???
 
-###Training the Backbone Model
+### Trained Models
+
+Trained models can be located at: ???
+
+### Parameter Changes
+
+A few changes need to be made to some files to the file "parameter_parser_tea_only.py" on lines 20 and 21.
+These should be changed to the home directory and the directory where the TeaMaking files are located respectively.
+
+## Code Execution
+
+### Training the Backbone Model
 
 We begin by training the CNN-backbone. This is accomplished through the 'execute_backbone.py' code. Which will train a 
 specific CNN-backbone using the available training dataset. This code is designed to train only the spatial features of 
@@ -104,4 +118,4 @@ node_rank.py.
 
 This code will locate the trained model and will evaluate the model located there using the Tea Making dataset.
 The importance that the model applies to each of the spatial features is output in a file 'importance.csv' within the 
-model's directory (where teh results.csv file is located). 
+model's directory (where teh results.csv file is located).
