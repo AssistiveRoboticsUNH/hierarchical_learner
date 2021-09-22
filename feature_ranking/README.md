@@ -101,7 +101,7 @@ these were the spatial and temporal inference architectures). This is accomplish
 
 ```python3 execute.py <model_name> <inference_approach>```
 
-where <inference_approach> is either linear (spatial model) or ditrl (temporal model). This code uses the 
+where <inference_approach> is either 'linear_iad' (spatial model) or 'ditrl' (temporal model). This code uses the 
 trained features of the fixed backbone model to identify feature presence in the input video. This information
 is then passed to either a linear layer or through our temporal feature learning pipeline (refer to text). When conducting
 inference using the temporal model the architecture will generate intermediary files (IADs) in the directory where the 
