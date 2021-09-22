@@ -9,6 +9,9 @@ def parse_exec_args():
     parser.add_argument('model', help='model_id', choices=model_dict.keys())
     parser.set_defaults(suffix='backbone')
 
+    parser.set_defaults(generate_gcn_files=False)
+    parser.add_argument('--gen_gcn', help='generate only the GCN files (requires IAD files to already exist)',
+                        dest='generate_gcn_files', action='store_true')
     parser.set_defaults(generate_files=False)
     parser.add_argument('--gen', help='generate_files', dest='generate_files', action='store_true')
     parser.set_defaults(eval_only=False)
