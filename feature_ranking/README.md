@@ -35,7 +35,7 @@ The Tea Making Dataset can be downloaded from: [Here](https://universitysystemnh
 
 ### Trained Models
 
-Trained models can be located at: ???
+Trained models can be located at: [Up on request]
 
 ### Parameter Changes
 
