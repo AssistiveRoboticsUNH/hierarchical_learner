@@ -31,7 +31,7 @@ Seaborn
 
 ### Dataset
 
-The Tea Making Dataset can be downloaded from: [Here] (https://universitysystemnh-my.sharepoint.com/:f:/g/personal/mah1075_usnh_edu/Eo4yvs-jlt5DtEloFOvGHm8BK9jXIa3ghQvdA30meGouOg?e=FdD5DY)
+The Tea Making Dataset can be downloaded from: [Here](https://universitysystemnh-my.sharepoint.com/:f:/g/personal/mah1075_usnh_edu/Eo4yvs-jlt5DtEloFOvGHm8BK9jXIa3ghQvdA30meGouOg?e=FdD5DY)
 
 ### Trained Models
 
